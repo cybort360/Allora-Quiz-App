@@ -134,7 +134,10 @@ function saveResults() {
 function displaySummary() {
   const percentage = Math.round((correctCount / questions.length) * 100);
   const tweetText = `I am ${formatName}, and I am ${percentage}% allora pilled after taking the @AlloraNetwork Quiz.\nTry it here: https://allora-quiz-app.vercel.app`;
-  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+  const quoteTweetId = '1947927503735021885';
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+    tweetText
+  )}&url=https://x.com/OctaneXyz/status/${quoteTweetId}`;
 
   questionDiv.innerHTML = `
     <h2>Quiz Complete, ${formatName}!</h2>
