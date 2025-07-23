@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quiz Results</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        max-width: 480px;
+        margin: 60px auto;
+        padding: 30px 25px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        color: #333;
+        text-align: center;
+      }
+
+      h1 {
+        color: #2563eb; /* Blue-600 */
+        margin-bottom: 30px;
+        font-weight: 700;
+        font-size: 2.4rem;
+      }
+
+      #results p {
+        font-size: 1.15rem;
+        margin: 12px 0;
+        line-height: 1.5;
+      }
+
+      #results p strong {
+        color: #1e40af; /* Indigo-800 */
+      }
+
+      #back-button {
+        display: inline-block;
+        margin-top: 40px;
+        padding: 12px 30px;
+        font-size: 1rem;
+        font-weight: 600;
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      #back-button:hover {
+        background-color: #1e40af;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Quiz Results</h1>
+    <div id="results">
+      <p>Loading results...</p>
+    </div>
+
+    <a href="index.html" id="back-button">Back to Quiz</a>
+
+    <script>
+      const savedScore = localStorage.getItem('quizScore');
+      const savedCorrect = localStorage.getItem('quizCorrectCount');
+      const savedWrong = localStorage.getItem('quizWrongCount');
+      const savedName = localStorage.getItem('quizPlayerName');
+
+      const resultsDiv = document.getElementById('results');
+
+      if (savedScore === null || savedCorrect === null || savedWrong === null || savedName === null) {
+        resultsDiv.innerHTML = '<p>No quiz results found. Please take the quiz first.</p>';
+        document.getElementById('back-button').style.display = 'none';
+      } else {
+        resultsDiv.innerHTML = `
+          <p><strong>Player Name:</strong> ${savedName}</p>
+          <p><strong>Final Score:</strong> ${savedScore}</p>
+          <p><strong>Correct Answers:</strong> ${savedCorrect}</p>
+          <p><strong>Wrong Answers:</strong> ${savedWrong}</p>
+        `;
+      }
+    </script>
+  </body>
+</html>

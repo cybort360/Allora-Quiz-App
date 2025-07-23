@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Web3 Quiz</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <img src="images/allora.png" alt="" />
+    <div class="quiz-container">
+      <div id="question">Question text will go here</div>
+      <div id="answers">
+        <button class="answer-btn">Option A</button>
+        <button class="answer-btn">Option B</button>
+        <button class="answer-btn">Option C</button>
+        <button class="answer-btn">Option D</button>
+      </div>
+      <div id="timer">Time left: <span id="time">10</span>s</div>
+      <div id="time-up" style="color: red; display: none">Time Up!</div>
+
+      <div id="results-controls" style="margin-top: 20px">
+        <a href="results.html" target="_blank" id="view-results-link">View Last Quiz Results</a>
+      </div>
+    </div>
+
+    <script src="sandbox.js"></script>
+  </body>
+</html>
