@@ -133,6 +133,8 @@ function saveResults() {
 
 function displaySummary() {
   const percentage = Math.round((correctCount / questions.length) * 100);
+  const tweetText = `I am ${formatName}, and I am ${percentage}% allora pilled after taking the @AlloraNetwork Quiz.\nTry it here: https://allora-quiz-app.vercel.app`;
+  const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
 
   questionDiv.innerHTML = `
     <h2>Quiz Complete, ${formatName}!</h2>
@@ -142,6 +144,9 @@ function displaySummary() {
     <p style="font-size: 1.3em; margin-top: 10px;">
       <em>${formatName}, you are ${percentage}% allora pilled.</em>
     </p>
+    <a id="twitter-share-btn" href="${tweetUrl}" target="_blank" style="display:inline-block;margin-top:20px;padding:10px 16px;background:#1da1f2;color:#fff;border-radius:6px;text-decoration:none;font-weight:bold;">
+      Share on Twitter
+    </a>
   `;
 
   answerBtns.forEach((btn) => (btn.style.display = 'none'));
