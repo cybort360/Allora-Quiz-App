@@ -1,68 +1,64 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+html,
 body {
   font-family: sans-serif;
   background-color: #0c0c0c;
   color: #f0f0f0;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100%;
+  width: 100%;
   overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-img {
-  height: 10rem;
-  width: 10rem;
-  position: relative;
-  top: -25rem;
-  left: 40rem;
-}
-
+/* === DESKTOP QUIZ STYLING === */
 .quiz-container {
   background: #161616;
-  padding: 7rem;
+  padding: 4rem;
   border-radius: 20px;
-  width: 1000px;
+  max-width: 800px;
+  margin: 5rem auto;
   text-align: center;
 }
 
 #question {
   font-size: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 #answers {
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  gap: 1rem;
 }
 
 .answer-btn {
   background: #242526;
   color: #f0f0f0;
-  padding: 1.4rem;
+  padding: 1.2rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .answer-btn:hover {
-  background: #262524;
+  background: #313131;
 }
 
 #timer,
 #score {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
 }
 
-#results-controls {
-  margin-top: 20px;
+#time-up {
+  margin-top: 1rem;
+  color: red;
+  font-size: 1.2rem;
 }
 
 #view-results-link {
@@ -72,32 +68,50 @@ img {
   font-weight: 600;
   text-decoration: none;
   border-radius: 6px;
-  box-shadow: 0 3px 6px rgba(59, 130, 246, 0.4);
+  display: inline-block;
+  margin-top: 20px;
   transition: background-color 0.3s ease;
 }
 
 #view-results-link:hover {
-  background-color: #a8a8a8;
-  cursor: pointer;
+  background-color: #d0d0d0;
 }
 
-/* === MOBILE VERSION === */
+/* === IMAGE STYLING === */
+img {
+  height: 10rem;
+  width: 10rem;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+/* === MOBILE OVERRIDE === */
 @media (max-width: 600px) {
   body {
-    display: block;
     padding: 1rem;
-    overflow-x: hidden; /* fix slide */
+    overflow-x: hidden;
   }
 
   .quiz-container {
-    display: none; /* REMOVE container on mobile */
+    display: none !important;
   }
 
   img {
+    position: static;
     display: block;
-    margin: 2rem auto 1rem auto;
+    margin: 2rem auto;
     height: 8rem;
     width: 8rem;
-    position: static;
+  }
+
+  #timer,
+  #score,
+  #time-up,
+  #view-results-link {
+    font-size: 1rem;
+    text-align: center;
+    display: block;
+    margin: 1rem auto;
   }
 }
