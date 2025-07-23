@@ -79,11 +79,10 @@ body {
 
 /* === IMAGE STYLING === */
 img {
+  display: block;
+  margin: 2rem auto;
   height: 10rem;
   width: 10rem;
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
 }
 
 /* === MOBILE OVERRIDE === */
@@ -98,7 +97,7 @@ img {
   }
 
   img {
-    position: static;
+    position: relative;
     display: block;
     margin: 2rem auto;
     height: 8rem;
