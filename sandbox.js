@@ -138,13 +138,15 @@ function displaySummary() {
 
   questionDiv.innerHTML = `
     <h2>Quiz Complete, ${formatName}!</h2>
+    <br>
     <p><strong>Final Score:</strong> ${score}</p>
     <p><strong>Correct Answers:</strong> ${correctCount}</p>
     <p><strong>Wrong Answers:</strong> ${wrongCount}</p>
+    <br>
     <p style="font-size: 1.3em; margin-top: 10px;">
       <em>${formatName}, you are ${percentage}% allora pilled.</em>
     </p>
-    <a id="twitter-share-btn" href="${tweetUrl}" target="_blank" style="display:inline-block;margin-top:20px;padding:10px 16px;background:#1da1f2;color:#fff;border-radius:6px;text-decoration:none;font-weight:bold;">
+    <a id="twitter-share-btn" href="${tweetUrl}" target="_blank" style="display:inline-block;margin-top:20px;padding:8px 14px;background:#1da1f2;color:#fff;border-radius:6px;text-decoration:none;font-weight:normal;font-size:1rem">
       Share on Twitter
     </a>
   `;
