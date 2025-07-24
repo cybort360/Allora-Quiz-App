@@ -8,7 +8,15 @@
   </head>
 
   <body>
-    <img src="images/allora.png" alt="" />
+    <button
+      id="theme-toggle"
+      aria-label="Toggle theme"
+      style="background: none; border: none; cursor: pointer; font-size: 1.5rem"
+    >
+      <span id="theme-icon">🌙</span>
+    </button>
+
+    <img id="logo" src="images/allora.png" alt="" />
     <div class="quiz-container">
       <div id="question">Question text will go here</div>
       <div id="answers">
@@ -19,6 +27,9 @@
       </div>
       <div id="timer">Time left: <span id="time">10</span>s</div>
       <div id="time-up" style="color: red; display: none">Time Up!</div>
+
+      <div id="current-score" style="margin-top: 10px; font-weight: bold"></div>
+      <div id="progress" style="margin-top: 5px"></div>
 
       <div id="results-controls" style="margin-top: 20px">
         <a href="results.html" target="_blank" id="view-results-link">View Last Quiz Results</a>

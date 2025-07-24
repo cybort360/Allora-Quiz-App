@@ -5,6 +5,7 @@ const answerBtns = document.querySelectorAll('.answer-btn');
 const scoreBoard = document.querySelector('#current-score');
 const timerElement = document.querySelector('#time');
 const timeUpMsg = document.querySelector('#time-up');
+const progressText = document.querySelector('#progress');
 
 let score = 0;
 let timeLeft = 20;
@@ -158,6 +159,16 @@ function displaySummary() {
   timerElement.textContent = '';
 }
 
+function updateProgress() {
+  const current = questions.length - availableQuestions.length;
+  const total = questions.length;
+  progressText.textContent = `Question ${current} of ${total}`;
+}
+
+function shuffleArray(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
 function loadNextQuestion() {
   clearInterval(countdown);
   resetButtons();
@@ -173,14 +184,14 @@ function loadNextQuestion() {
   currentQuestion = availableQuestions[randomIndex];
   availableQuestions.splice(randomIndex, 1);
 
+  const shuffledOptions = shuffleArray([...currentQuestion.options]);
   questionDiv.textContent = currentQuestion.question;
   answerBtns.forEach((btn, index) => {
-    btn.textContent = currentQuestion.options[index];
+    btn.textContent = shuffledOptions[index];
   });
 
   timeLeft = 20;
   timerElement.textContent = timeLeft;
-
   countdown = setInterval(() => {
     timeLeft--;
     timerElement.textContent = timeLeft;
@@ -189,13 +200,39 @@ function loadNextQuestion() {
       clearInterval(countdown);
       answerBtns.forEach((btn) => (btn.disabled = true));
       timeUpMsg.style.display = 'block';
-
-      setTimeout(() => {
-        loadNextQuestion();
-      }, 1000);
+      setTimeout(() => loadNextQuestion(), 1000);
     }
   }, 1000);
+
+  updateProgress();
 }
+
+// Theme Toggle
+const toggleButton = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const logo = document.getElementById('logo');
+const storedTheme = localStorage.getItem('theme') || 'light';
+
+function updateThemeIcon(theme) {
+  themeIcon.textContent = theme === 'dark' ? '🌞' : '🌙';
+  if (logo) {
+    logo.src = theme === 'dark' ? 'images/allora.png' : 'images/logo-allora.png';
+  }
+}
+
+if (storedTheme === 'dark') {
+  document.body.classList.add('dark-mode');
+  updateThemeIcon('dark');
+} else {
+  updateThemeIcon('light');
+}
+
+toggleButton.addEventListener('click', () => {
+  const isDark = document.body.classList.toggle('dark-mode');
+  const newTheme = isDark ? 'dark' : 'light';
+  localStorage.setItem('theme', newTheme);
+  updateThemeIcon(newTheme);
+});
 
 answerBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
