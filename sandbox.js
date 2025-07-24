@@ -207,7 +207,6 @@ function loadNextQuestion() {
   updateProgress();
 }
 
-// Theme Toggle
 const toggleButton = document.getElementById('theme-toggle');
 const themeIcon = document.getElementById('theme-icon');
 const logo = document.getElementById('logo');
