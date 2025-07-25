@@ -1,5 +1,10 @@
 'use strict';
 
+const supabaseClient = supabase.createClient(
+  'https://bldqnvwadicpatlqfphp.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJsZHFudndhZGljcGF0bHFmcGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMzNzc4MDQsImV4cCI6MjA2ODk1MzgwNH0.glaQ9g4MlHmljhD_PGpWog8CxhQ3biCtfu7nxxSjidA'
+);
+
 const questionDiv = document.querySelector('#question');
 const answerBtns = document.querySelectorAll('.answer-btn');
 const scoreBoard = document.querySelector('#current-score');
@@ -19,99 +24,144 @@ const formatName = askName ? askName[0].toUpperCase() + askName.slice(1).toLower
 
 const questions = [
   {
-    question: 'What is the primary goal of the Allora Network?',
+    question: 'What is Allora’s primary goal?',
     options: [
-      'To create a centralized AI controlled by big companies',
-      'To build a decentralized machine intelligence network open to everyone',
-      'To develop a blockchain only for cryptocurrency trading',
-      'To replace all existing machine learning platforms',
+      'To centralize AI development for enterprise use',
+      'To decentralize and democratize machine intelligence',
+      'To build a cloud computing service for AI models',
+      'To provide high-speed data storage for AI training',
     ],
-    answer: 'To build a decentralized machine intelligence network open to everyone',
+    answer: 'To decentralize and democratize machine intelligence',
   },
   {
-    question: 'What consensus mechanism does Allora Network use?',
-    options: ['Proof of Work', 'Proof of Stake', 'Proof of Alpha', 'Proof of Accuracy'],
-    answer: 'Proof of Alpha',
-  },
-  {
-    question: 'Which of these is NOT a type of participant in Allora topics?',
+    question: 'What are the three main participant roles in each Allora topic?',
     options: [
-      'Workers (AI programs generating predictions)',
-      'Reputers (verifying accuracy of predictions)',
-      'Validators (securing network communication)',
-      'Consumers (users who pay for AI insights)',
+      'Miners, Validators, Consumers',
+      'Developers, Trainers, Validators',
+      'Workers, Reputers, Consumers',
+      'Producers, Auditors, Traders',
     ],
-    answer: 'Validators (securing network communication)',
+    answer: 'Workers, Reputers, Consumers',
   },
   {
-    question: 'How does Allora reward Workers?',
+    question: 'In Allora, what is a "topic"?',
     options: [
-      'Based on the amount of tokens they stake',
-      'Based on their contributions to improving network accuracy',
-      'Based on the number of predictions they make',
-      'Based on user votes',
+      'A set of coding guidelines',
+      'A data structure for indexing files',
+      'A problem domain where participants collaborate on inference',
+      'A community discussion board',
     ],
-    answer: 'Based on their contributions to improving network accuracy',
+    answer: 'A problem domain where participants collaborate on inference',
   },
   {
-    question: 'What unique pricing model does Allora use for consumers buying AI insights?',
+    question: 'What is the purpose of “forecasted losses” in Allora?',
     options: [
-      'Fixed price per insight',
-      'Auction-based pricing',
+      'To penalize inaccurate workers financially',
+      'To estimate the value of stake returns',
+      'To predict the likely accuracy of other workers',
+      'To measure gas fees for inference submissions',
+    ],
+    answer: 'To predict the likely accuracy of other workers',
+  },
+  {
+    question: 'How are reputers rewarded in the Allora Network?',
+    options: [
+      'By solving the most problems first',
+      'Based on how closely their reports align with consensus and how much they’ve staked',
+      'According to how many topics they create',
+      'Through random token distribution',
+    ],
+    answer: 'Based on how closely their reports align with consensus and how much they’ve staked',
+  },
+  {
+    question: 'What innovation allows Allora to combine AI predictions in a context-aware way?',
+    options: [
+      'Zero-knowledge Rollups',
+      'Inference Mesh Network',
+      'Inference Synthesis',
+      'Predictive Aggregation Layer',
+    ],
+    answer: 'Inference Synthesis',
+  },
+  {
+    question: 'What does Allora produce to measure confidence in its predictions?',
+    options: ['Trust Scores', 'Reputation Tokens', 'Confidence Intervals', 'Stake Ratios'],
+    answer: 'Confidence Intervals',
+  },
+  {
+    question: 'Which of the following is NOT one of Allora’s "secondary predictions"?',
+    options: ['Confidence Intervals', 'Forecasted Losses', 'Listening Coefficients', 'Confidence Boost'],
+    answer: 'Confidence Boost',
+  },
+  {
+    question: 'How does Allora prevent Sybil attacks in reward distribution?',
+    options: [
+      'Using a proof-of-work mining algorithm',
+      'Requiring face verification and KYC',
+      'By using entropy measures that adjust for identity duplication',
+      'Manually validating all users',
+    ],
+    answer: 'By using entropy measures that adjust for identity duplication',
+  },
+  {
+    question: 'What is the function of "Listening Coefficients" in the Allora system?',
+    options: [
+      'To count how many predictions a reputer has made',
+      'To measure a reputer’s ability to predict worker accuracy',
+      'To track reputers’ historical accuracy and trustworthiness',
+      'To calculate gas efficiency of reputers',
+    ],
+    answer: 'To track reputers’ historical accuracy and trustworthiness',
+  },
+  {
+    question: 'What kind of pricing model is used when consumers purchase AI insights in Allora?',
+    options: [
+      'Fixed token fee per request',
       'Pay-What-You-Want (PWYW)',
-      'Subscription-only access',
+      'Free for all verified addresses',
+      'Gasless micropayments through relayers',
     ],
     answer: 'Pay-What-You-Want (PWYW)',
   },
   {
-    question: 'What does Allora’s “context-awareness” feature allow workers to do?',
+    question: 'What happens if a reputer’s stake is significantly above average?',
     options: [
-      "Predict how accurate other workers' predictions will be under current conditions",
-      'Control the entire network’s decision-making process',
-      'Adjust the token emission rate dynamically',
-      'Encrypt all network data',
+      'They are automatically made workers',
+      'Their influence in consensus is capped to prevent centralization',
+      'They gain admin-level access to the topic',
+      'Their rewards are doubled',
     ],
-    answer: "Predict how accurate other workers' predictions will be under current conditions",
+    answer: 'Their influence in consensus is capped to prevent centralization',
   },
   {
-    question: 'Why does Allora use "adjusted stake" for reputers?',
+    question: 'What determines the “reward weight” of a topic in Allora?',
     options: [
-      'To ensure the richest reputers control the network',
-      'To cap the influence of very rich reputers and prevent centralization',
-      'To increase the rewards for new reputers',
-      'To allow reputers to create new topics',
+      'The number of consumers using it',
+      'The number of predictions per second',
+      'Stake by reputers and fee revenue from consumers',
+      'The length of time the topic has existed',
     ],
-    answer: 'To cap the influence of very rich reputers and prevent centralization',
+    answer: 'Stake by reputers and fee revenue from consumers',
   },
   {
-    question: 'What is a "topic" in Allora Network?',
+    question: 'What is Allora’s stance on how workers should be rewarded?',
     options: [
-      'A type of ALLO token',
-      'A sub-network focused on solving a specific AI problem',
-      'A reputation score system',
-      'A voting mechanism',
+      'Equally, based on participation',
+      'Based on how much their work improves prediction accuracy',
+      'Based on how often they post',
+      'By seniority within the network',
     ],
-    answer: 'A sub-network focused on solving a specific AI problem',
+    answer: 'Based on how much their work improves prediction accuracy',
   },
   {
-    question: 'How does Allora ensure user data privacy?',
+    question: 'Which core principle allows Allora to adapt its token emissions over time?',
     options: [
-      'By centralizing all data in secure servers',
-      'By encrypting data before sharing it with all participants',
-      'By letting workers contribute AI predictions without revealing underlying data or models',
-      'By not storing any user data at all',
+      'Elastic Proof-of-Stake',
+      'Dynamic Gas Scaling',
+      'Target emission rate with APY caps and fee offsets',
+      'On-chain DAO voting every epoch',
     ],
-    answer: 'By letting workers contribute AI predictions without revealing underlying data or models',
-  },
-  {
-    question: 'What role do “reputers” play in the Allora Network?',
-    options: [
-      'They generate AI predictions',
-      "They verify the accuracy of workers' predictions and help maintain consensus",
-      'They stake ALLO tokens to run the network',
-      'They consume AI insights and pay for them',
-    ],
-    answer: "They verify the accuracy of workers' predictions and help maintain consensus",
+    answer: 'Target emission rate with APY caps and fee offsets',
   },
 ];
 
@@ -153,10 +203,28 @@ function displaySummary() {
     <a id="twitter-share-btn" href="${tweetUrl}" target="_blank" style="display:inline-block;margin-top:20px;padding:8px 14px;background:#1da1f2;color:#fff;border-radius:6px;text-decoration:none;font-weight:normal;font-size:1rem">
       Share on Twitter
     </a>
+    <br><br>
+      <div class="leaderboard-section">
+      <h2>🏆 Leaderboard</h2>
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-list"></tbody>
+      </table>
+    </div>
   `;
 
   answerBtns.forEach((btn) => (btn.style.display = 'none'));
   timerElement.textContent = '';
+
+  submitScoreToSupabase(formatName, score).then(() => {
+    loadLeaderboard();
+  });
 }
 
 function updateProgress() {
@@ -264,3 +332,41 @@ answerBtns.forEach((btn) => {
 });
 
 loadNextQuestion();
+
+async function submitScoreToSupabase(name, score) {
+  const { data, error } = await supabaseClient.from('leaderboard').insert([{ name, score }]).select();
+
+  if (error) {
+    console.error('❌ Error submitting score:', error.message);
+  } else {
+    console.log('✅ Score submitted successfully:', data);
+  }
+}
+
+async function loadLeaderboard() {
+  const { data, error } = await supabaseClient
+    .from('leaderboard')
+    .select('*')
+    .order('score', { ascending: false })
+    .limit(10);
+
+  if (error) {
+    console.error('❌ Error loading leaderboard:', error.message);
+    return;
+  }
+
+  const tbody = document.getElementById('leaderboard-list');
+  tbody.innerHTML = ''; // Clear old data
+
+  data.forEach((entry, index) => {
+    const row = document.createElement('tr');
+
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${entry.name}</td>
+      <td>${entry.score}</td>
+    `;
+
+    tbody.appendChild(row);
+  });
+}
