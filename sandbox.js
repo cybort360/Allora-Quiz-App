@@ -356,7 +356,7 @@ async function loadLeaderboard() {
   }
 
   const tbody = document.getElementById('leaderboard-list');
-  tbody.innerHTML = ''; // Clear old data
+  tbody.innerHTML = '';
 
   data.forEach((entry, index) => {
     const row = document.createElement('tr');
